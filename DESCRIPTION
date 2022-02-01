@@ -1,0 +1,18 @@
+Package: compicc
+Type: Package
+Title: Confidence Interval for the Difference of ICCs
+Version: 0.1.0
+Author: Riley Mulshine
+Maintainer: rmulshi2@nd.edu
+Description: The compicc package contains 2 functions (dep_ci and indep_ci) that
+    each calculate the 95% confidence interval for the difference between
+    the intraclass correlation coefficients (ICCs) of two datasets. The dep_ci
+    function is used when the two datasets are dependent, meaning the same
+    subjects were tested in both datasets. The indep_ci function is used when
+    the two datasets are independent, meaning different subjects were tested
+    from one dataset to the next.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    irr

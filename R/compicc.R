@@ -1,0 +1,16 @@
+#' @title compicc
+#'
+#' @description A package for computing the confidence interval of the
+#'   difference between two datasets' intraclass correlation coefficients
+#'   (ICCs). It contains functions to compute the confidence interval for
+#'   dependent (\code{dep_ci}) and independent (\code{indep_ci}) data.
+#'
+#'   If the same subjects were tested in each dataset being compared, the dependent
+#'   function \code{dep_ci} should be used. If a different set of subjects
+#'   were tested in each dataset, the independent function \code{indep_ci}
+#'   should be used.
+#'
+#'
+#' @docType package
+#' @name compicc
+NULL

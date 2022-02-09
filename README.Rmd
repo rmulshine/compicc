@@ -18,25 +18,33 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of compicc is to ...
+## Description
+
+The goal of compicc is to help practicioners in the fields of medicine, psychology and sports science to efficiently compare the reliability of two systems, measurers or judges. This package includes two functions that allow the user to compute the difference between the intraclass correlation coefficient of two datasets of measurements. This can be used to compare two different systems, one system at two different time points, or many other applications.
 
 ## Installation
 
 You can install the development version of compicc like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install.packages("compicc")
 ```
 
-## Example
+And the development version from [GitHub](https://github.com/) with:
 
-This is a basic example which shows you how to solve a common problem:
+``` r
+# install.packages("devtools")
+devtools::install_github("rmulshine/compicc")
+```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Structure
 
+This package includes two functions:
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+* Confidence interval of difference of *dependent* intraclass correlation coefficients: **dep_ci()**
+* Confidence interval of difference of *independent* intraclass correlation coefficients: **indep_ci()**
 
-You can also embed plots, for example:
+The package includes example data that can be run on both functions.
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+The package's vignette further describes both functions and shows how they can be used with the package's included data. The vignette also explains possible user errors, typically due to incorrect formatting of the data, and reviews both functions' specialized error messages.
+

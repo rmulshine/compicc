@@ -10,7 +10,6 @@
 #'   were tested in each dataset, the independent function \code{indep_ci}
 #'   should be used.
 #'
-#'
 #' @docType package
 #' @name compicc
 NULL

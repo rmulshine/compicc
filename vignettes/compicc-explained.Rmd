@@ -1,6 +1,7 @@
 ---
 title: "compicc-explained"
 authors: "Riley Mulshine" and "Alan Huebner"
+date: "02/10/2022"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{compicc-explained}
@@ -8,13 +9,25 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+# 1. Summary
 
-```{r setup}
+The compicc package is intended for practicioners in a wide range of fields, most notably psychology, medicine, and sports science. It allows users to compare the reliability of two measurement systems or one system at two different time points. For example, one could compare the reliability of two different medical practicioners' measurements on patients' shoulder mobility in degrees of rotation. Similarly, a coach could study the reliability of a force plate measuring athletes' physical performances at two time points a year apart to determine if the system's reliability has drifted.
+
+The two functions in compicc calculate the 95% confidence interval of the difference of one dataframe's intraclass correlation coefficient (ICC) versus another dataframe's ICC. These two functions are **dep_ci()** and **indep_ci()**, whose uses will be explained later.
+
+To start, the package is loaded with the code:
+
+``` {r}
 library(compicc)
 ```
+
+# 2. Included Functions
+
+The compicc package includes two different functions: **dep_ci()** and **indep_ci()**. Determining which function to use depends on whether the same set of subjects or a different set of subjects were tested in each dataset being compared.
+
+## 2.1 Confidence Interval for Dependent Data: dep_ci()
+
+Dependent data refers to the scenario in which the same set of subjects were tested in each dataset. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
+
+The **dep_ci()** function is called with two inputs: data1 and data2. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared. The function will return the 95% confidence interval for the difference of ICC between data1 and data2, meaning the confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+

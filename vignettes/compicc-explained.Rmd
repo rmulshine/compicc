@@ -15,6 +15,8 @@ The compicc package is intended for practicioners in a wide range of fields, mos
 
 The two functions in compicc calculate the 95% confidence interval of the difference of one dataframe's intraclass correlation coefficient (ICC) versus another dataframe's ICC. These two functions are **dep_ci()** and **indep_ci()**, whose uses will be explained later.
 
+In addition, the package contains two dataframes to be used as demonstrations of the functions' capabilities. These dataframes are titled ______ and ______. They consist of simulated data of __ trials of measurements __ subjects. Below, this document will call the package's functions with these dataframes and interpret the results for instruction purposes.
+
 To start, the package is loaded with the code:
 
 ``` {r}
@@ -25,9 +27,30 @@ library(compicc)
 
 The compicc package includes two different functions: **dep_ci()** and **indep_ci()**. Determining which function to use depends on whether the same set of subjects or a different set of subjects were tested in each dataset being compared.
 
-## 2.1 Confidence Interval for Dependent Data: dep_ci()
+## 2.1. Confidence Interval for Dependent Data: dep_ci()
 
 Dependent data refers to the scenario in which the same set of subjects were tested in each dataset. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
 
 The **dep_ci()** function is called with two inputs: data1 and data2. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared. The function will return the 95% confidence interval for the difference of ICC between data1 and data2, meaning the confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+
+## 2.2. Confidence Interval for Inependent Data: indep_ci()
+
+# 3. Frequent Errors
+
+## 3.1. Unequal Number of Trials
+
+## 3.2. Unequal Number of Observations (Dependent case only)
+
+## 3.3. Missing Values
+
+
+
+# 4. Description of Calculations
+
+# 5. References
+
+Matthias Gamer, Jim Lemon and Ian Fellows Puspendra Singh <puspendra.pusp22@gmail.com> (2019). irr: Various Coefficients of Interrater Reliability and Agreement. R package version 0.84.1. https://CRAN.R-project.org/package=irr
+
+Ramasundarahettige, C. F., Donner, A., &amp; Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
+
 

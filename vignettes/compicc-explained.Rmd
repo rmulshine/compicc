@@ -31,19 +31,43 @@ The compicc package includes two different functions: **dep_ci()** and **indep_c
 
 Dependent data refers to the scenario in which the same set of subjects were tested in each dataset. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
 
-The **dep_ci()** function is called with two inputs: data1 and data2. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared. The function will return the 95% confidence interval for the difference of ICC between data1 and data2, meaning the confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+The **dep_ci()** function is called with two inputs: data1 and data2. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared.
+
+The function will return 3 values:
+* data1ICC: intraclass correlation coefficient of data1
+* data2ICC: intraclass correlation coefficient of data2
+* confidenceInterval: 1x2 dataframe with the lower bound and upper bound of the 95% confidence interval for the difference of the ICC of data1 and data2
+** confidenceInterval$lowerBound: lower bound of confidence interval
+** confidenceInterval$upperBound: upper bound of confidence interval
+
+The confidence interval will represent the value *ICC(data1) - ICC(data2)*.
 
 ## 2.2. Confidence Interval for Inependent Data: indep_ci()
 
+Independent data refers to the scenario in which an entirely different set of subjects were tested from one dataset to the next. This means there are no subjects who were tested in both the first dataframe and the second dataframe.
 
+The **indep_ci()** function is called with two inputs: data1 and data2. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared.
 
-## 2.3. Example Data: 
+The function will return 3 values:
+* data1ICC: intraclass correlation coefficient of data1
+* data2ICC: intraclass correlation coefficient of data2
+* confidenceInterval: 1x2 dataframe with the lower bound and upper bound of the 95% confidence interval for the difference of the ICC of data1 and data2
+** confidenceInterval$lowerBound: lower bound of confidence interval
+** confidenceInterval$upperBound: upper bound of confidence interval
 
-# 3. Frequent Errors
+The confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+
+## 2.3. Included Data: 
+
+# 3. Using the Functions with the Included Data:
+
+Two dataframes are included in the compicc package to provide correctly formatted, easily accessible data with which the package's functions can be run. The purpose of this is to demonstrate the functions' returns and interpretation.
+
+# 4. Frequent Errors
 
 To demonstrate the possible errors encountered when using the functions in the compicc package, examples of dataframes that lead to certain errors are described below.
 
-## 3.1. Unequal Number of Trials
+## 4.1. Unequal Number of Trials
 
 To compute the ICC of a dataframe, every subject must go through the same number of trials during testing. In other words, each row in the dataframe must have the same number of columns of present data. Similarly, each dataframe being compared must have the same number of trials/columns. This means if dataframe 1 consists of 4 trials per subject, dataframe 2 must consist of exactly 4 trials per subject. An example of dataframes violating this condition is:
 
@@ -63,7 +87,7 @@ indep_ci(data1, data2)
 
 The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes.
 
-## 3.2. Unequal Number of Observations (Dependent case only)
+## 4.2. Unequal Number of Observations (Dependent case only)
 
 In order for the two dataframes to be dependent, the subjects/rows must be matched across dataframes. This means row 1 of dataframe1 represents the same subject as row 1 of dataframe2, and so on for each additional row of data. Therefore, if there are an unequal number of subjects/rows between the two dataframes, the function **dep_ci()** will return an error message. The dataframes cannot be dependent when they have an unequal number of rows of data. Below is an example:
 
@@ -86,7 +110,7 @@ The error message tells the user that the number of rows must be equal across da
 
 Note: This is not an issue for the independent case. The **indep_ci()** function accepts dataframes with unequal numbers of observations, since the subjects should not match across dataframes.
 
-## 3.3. Missing Values
+## 4.3. Missing Values
 
 The embedded functions in the compicc functions do not work with dataframes that consist of missing values. Therefore, if the user tries to call either the **dep_ci()** or **indep_ci()** function with a dataframe that has one or more NA or NaN value, the function will stop running and return an error message. An example of this is shown below:
 
@@ -106,12 +130,18 @@ dep_ci(data1, data2)
 
 The error message states that there cannot be a missing value in either dataframe. The NA value in data1 (d1_subject3) must either be replaced with an imputed value, or subject 3's results must be discarded in order to use either function.
 
-# 4. Description of Calculations
+# 5. Description of Calculations
 
-# 5. References
+The functions in the compicc package include intensive calculations derived from Ramasundarahettige et al. (2009) to return the confidence interval of the difference of ICCs. The description of these calculations is provided for the users of the compicc package to understand and validate the functions' mathematical procedures.
+
+## 5.1. Dependent Data
+
+## 5.2. Independent Data
+
+# 6. References
 
 Matthias Gamer, Jim Lemon and Ian Fellows Puspendra Singh <puspendra.pusp22@gmail.com> (2019). irr: Various Coefficients of Interrater Reliability and Agreement. R package version 0.84.1. https://CRAN.R-project.org/package=irr
 
-Ramasundarahettige, C. F., Donner, A., &amp; Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
+Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
 
 

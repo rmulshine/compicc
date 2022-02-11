@@ -18,13 +18,14 @@ points, or many other applications.
 
 ## Installation
 
-You can install the development version of compicc like so:
+You may install the released version of compicc from CRAN with:
 
 ``` r
 install.packages("compicc")
 ```
 
-And the development version from [GitHub](https://github.com/) with:
+The development version from [GitHub](https://github.com/) is available
+with:
 
 ``` r
 # install.packages("devtools")

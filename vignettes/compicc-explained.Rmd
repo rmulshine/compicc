@@ -23,7 +23,7 @@ To start, the package is loaded with the code:
 library(compicc)
 ```
 
-# 2. Included Functions
+# 2. Included Elements
 
 The compicc package includes two different functions: **dep_ci()** and **indep_ci()**. Determining which function to use depends on whether the same set of subjects or a different set of subjects were tested in each dataset being compared.
 
@@ -35,15 +35,76 @@ The **dep_ci()** function is called with two inputs: data1 and data2. The input 
 
 ## 2.2. Confidence Interval for Inependent Data: indep_ci()
 
+
+
+## 2.3. Example Data: 
+
 # 3. Frequent Errors
+
+To demonstrate the possible errors encountered when using the functions in the compicc package, examples of dataframes that lead to certain errors are described below.
 
 ## 3.1. Unequal Number of Trials
 
+To compute the ICC of a dataframe, every subject must go through the same number of trials during testing. In other words, each row in the dataframe must have the same number of columns of present data. Similarly, each dataframe being compared must have the same number of trials/columns. This means if dataframe 1 consists of 4 trials per subject, dataframe 2 must consist of exactly 4 trials per subject. An example of dataframes violating this condition is:
+
+``` {r}
+d1_subject1 <- c(34, 33, 36)
+d1_subject2 <- c(41, 38, 40)
+d1_subject3 <- c(37, 36, 37)
+data1 <- data.frame(d1_subject1, d1_subject2, d1_subject3)
+
+d2_subject1 <- c(33, 33, 35, 32)
+d2_subject2 <- c(43, 41, 42, 41)
+d2_subject3 <- c(36, 36, 38, 37)
+data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3)
+
+indep_ci(data1, data2)
+```
+
+The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes.
+
 ## 3.2. Unequal Number of Observations (Dependent case only)
+
+In order for the two dataframes to be dependent, the subjects/rows must be matched across dataframes. This means row 1 of dataframe1 represents the same subject as row 1 of dataframe2, and so on for each additional row of data. Therefore, if there are an unequal number of subjects/rows between the two dataframes, the function **dep_ci()** will return an error message. The dataframes cannot be dependent when they have an unequal number of rows of data. Below is an example:
+
+``` {r}
+d1_subject1 <- c(34, 33, 36)
+d1_subject2 <- c(41, 38, 40)
+d1_subject3 <- c(37, 36, 37)
+data1 <- data.frame(d1_subject1, d1_subject2, d1_subject3)
+
+d2_subject1 <- c(33, 33, 35)
+d2_subject2 <- c(43, 41, 42)
+d2_subject3 <- c(36, 36, 38)
+d2_subject4 <- c(29, 28, 28)
+data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3, d2_subject4)
+
+dep_ci(data1, data2)
+```
+
+The error message tells the user that the number of rows must be equal across dataframes. When receiving this message, the user should adjust the dataframes to make sure that the subjects tested in each dataframe match each other and are placed in the same row in both dataframes.
+
+Note: This is not an issue for the independent case. The **indep_ci()** function accepts dataframes with unequal numbers of observations, since the subjects should not match across dataframes.
 
 ## 3.3. Missing Values
 
+The embedded functions in the compicc functions do not work with dataframes that consist of missing values. Therefore, if the user tries to call either the **dep_ci()** or **indep_ci()** function with a dataframe that has one or more NA or NaN value, the function will stop running and return an error message. An example of this is shown below:
 
+``` {r}
+d1_subject1 <- c(34, 33, 36)
+d1_subject2 <- c(41, 38, 40)
+d1_subject3 <- c(37, NA, 37)
+data1 <- data.frame(d1_subject1, d1_subject2, d1_subject3)
+
+d2_subject1 <- c(33, 33, 35)
+d2_subject2 <- c(43, 41, 42)
+d2_subject3 <- c(36, 36, 38)
+data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3)
+
+dep_ci(data1, data2)
+```
+
+The error message states that there cannot be a missing value in either dataframe. The NA value in data1 (d1_subject3) must either be replaced with an imputed value, or subject 3's results must be discarded in order to use either function.
 
 # 4. Description of Calculations
 

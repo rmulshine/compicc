@@ -212,7 +212,6 @@ Where:
 
 $\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
 
-\
 For further reading into the calculations used in this package, reference the following reading:
 
 Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
@@ -222,5 +221,4 @@ Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval 
 Matthias Gamer, Jim Lemon and Ian Fellows Puspendra Singh <puspendra.pusp22@gmail.com> (2019). irr: Various Coefficients of Interrater Reliability and Agreement. R package version 0.84.1. https://CRAN.R-project.org/package=irr
 
 Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
-
 

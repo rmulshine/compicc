@@ -1,7 +1,7 @@
 ---
 title: "compicc-explained"
 authors: "Riley Mulshine" and "Alan Huebner"
-date: "02/10/2022"
+date: "02/12/2022"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{compicc-explained}
@@ -57,9 +57,9 @@ The function will return 3 values:
 
 The confidence interval will represent the value *ICC(data1) - ICC(data2)*.
 
-## 2.3. Included Data: 
+## 2.3. Included Data
 
-# 3. Using the Functions with the Included Data:
+# 3. Using the Functions with the Included Data
 
 Two dataframes are included in the compicc package to provide correctly formatted, easily accessible data with which the package's functions can be run. The purpose of this is to demonstrate the functions' returns and interpretation.
 
@@ -134,9 +134,88 @@ The error message states that there cannot be a missing value in either datafram
 
 The functions in the compicc package include intensive calculations derived from Ramasundarahettige et al. (2009) to return the confidence interval of the difference of ICCs. The description of these calculations is provided for the users of the compicc package to understand and validate the functions' mathematical procedures.
 
-## 5.1. Dependent Data
+The approach to estimating the difference between two ICCs begins with the simple case of one ICC. In this case, the formula of the confidence interval is derived from the central limit theorem and Slutsky's Theorem:
 
-## 5.2. Independent Data
+$L, H = \widehat{\rho} \pm (z_{\alpha/2})\sqrt{(\widehat{var}(\widehat{\rho})}$
+
+Where L, H are the lower, upper bounds of the confidence interval, $\widehat{\rho}$ is the point estimate of the ICC, and $z_{\alpha/2}$ is the ${\alpha/2}$ quantile of the normal distribution.
+
+Extending this to the difference of two ICCs, the formula becomes:
+
+**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{var(\widehat{\rho}_1)+var(\widehat{\rho}_2)}$
+
+**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{var(\widehat{\rho}_1)+var(\widehat{\rho}_2)}$
+
+Since the limits L and U may not be symmetrical around $\widehat{\rho_1}-\widehat{\rho_2}$, the variance terms must be expanded further. Considering the variance of one ICC estimate $\widehat{\rho_1}$ and the lower limit L, the variance is defined as:
+
+$\widehat{var}(\widehat{\rho}_1) = (\hat{\rho}_1 - l_1)^2/(z_{\alpha/2})^2$
+
+Where $l_1$ is the lower bound of the confidence interval of $\rho_1$, the first ICC.
+
+Similarly, for the upper limit U:
+
+$\widehat{var}_2(\widehat{\rho}_2) = (u_2 - \hat{\rho}_2)^2/(z_{\alpha/2})^2$
+
+Where $l_2$ is the lower bound of the confidence interval of $\rho_2$, the second ICC.
+
+Therefore, the square root term in the original equation $var(\widehat{\rho}_1)+var(\widehat{\rho}_2)$ expands as:
+
+$var(\widehat{\rho}_1)+var(\widehat{\rho}_2) = (\hat{\rho}_1 - l_1)^2/(z_{\alpha/2})^2 + (u_2 - \hat{\rho}_2)^2/(z_{\alpha/2})^2$
+
+Substituting this into the equations for the upper and lower bounds of the confidence interval:
+
+**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2+(u_2-\widehat{\rho_2})^2}$
+
+**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2+(\widehat{\rho_2}-l_2)^2}$
+
+These formulas will be referred to as Formulas 1.1 and 1.2.
+
+Formulas 1.1 and 1.2 are used to calculate the confidence interval of the difference between two **independent** ICCs. If the squared terms were to be expanded (as done in the next step), a correlation term would arise. The correlation between two independent variables is identically zero, so the above formulas (1.1 and 1.2) are the final formulas used to calculate the confidence interval in the independent case.
+
+For dependent data, the squared terms must be exapnded, since dependent data is correlated. The formulas 1.1 and 1.2 are expanded, with the following definition in mind:
+
+$cov(\hat{\rho}_1, \hat{\rho}_2) = corr(\hat{\rho}_1, \hat{\rho}_2)*\sqrt{var(\widehat{\rho}_1)*var(\widehat{\rho}_2)}$
+
+Which returns the equations:
+
+**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(\widehat{\rho_1}-l_1)*(u_2-\widehat{\rho_2})+(u_2-\widehat{\rho_2})^2}$
+
+**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(u_1-\widehat{\rho_1})*(\widehat{\rho_2}-l_2)+(\widehat{\rho_2}-l_2)^2}$
+
+These formulas will be referred to as Formulas 2.1 and 2.2.
+
+The term $\widehat{corr({\rho}_{1}{\rho}_{2})}$ is defined by Ramasundarahettige et al. (2009) as:
+
+$\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
+
+Where $k_1$, $k_2$ are the number of measurements (trials) on each subject by systems 1 and 2, respectively; $\widehat{\rho}_{12}$ is the interclass correlation coefficient (Pearson's correlation "r") between systems 1 and 2.
+
+$\widehat{\rho}_{12}$ is calculated as the Pearson product moment correlation between the first and second pair of all possible combinations of data points in both dataframes. This gives all of the values necessary to compute the limits of the confidence interval for the dependent case.
+
+## 5.1. Independent Data
+
+As a brief summary, the complete formulas used by the function indep_ci() for computing the bounds of the confidence interval for independent data are shown again:
+
+**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2+(u_2-\widehat{\rho_2})^2}$
+
+**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2+(\widehat{\rho_2}-l_2)^2}$
+
+## 5.2. Dependent Data
+
+For dependent data, the complete formulas used by the function dep_ci() for the bounds of the confidence interval are:
+
+**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(\widehat{\rho_1}-l_1)*(u_2-\widehat{\rho_2})+(u_2-\widehat{\rho_2})^2}$
+
+**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(u_1-\widehat{\rho_1})*(\widehat{\rho_2}-l_2)+(\widehat{\rho_2}-l_2)^2}$
+
+Where:
+
+$\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
+
+\
+For further reading into the calculations used in this package, reference the following reading:
+
+Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
 
 # 6. References
 

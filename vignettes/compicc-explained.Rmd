@@ -1,5 +1,5 @@
 ---
-title: "compicc-explained"
+title: "compicc Explained"
 authors: "Riley Mulshine" and "Alan Huebner"
 date: "02/12/2022"
 output: rmarkdown::html_vignette
@@ -20,7 +20,7 @@ In addition, the package contains two dataframes to be used as demonstrations of
 To start, the package is loaded with the code:
 
 ``` {r}
-library(compicc)
+# library(compicc)
 ```
 
 # 2. Included Elements
@@ -82,7 +82,7 @@ d2_subject2 <- c(43, 41, 42, 41)
 d2_subject3 <- c(36, 36, 38, 37)
 data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3)
 
-indep_ci(data1, data2)
+# indep_ci(data1, data2)
 ```
 
 The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes.
@@ -103,7 +103,7 @@ d2_subject3 <- c(36, 36, 38)
 d2_subject4 <- c(29, 28, 28)
 data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3, d2_subject4)
 
-dep_ci(data1, data2)
+# dep_ci(data1, data2)
 ```
 
 The error message tells the user that the number of rows must be equal across dataframes. When receiving this message, the user should adjust the dataframes to make sure that the subjects tested in each dataframe match each other and are placed in the same row in both dataframes.
@@ -125,7 +125,7 @@ d2_subject2 <- c(43, 41, 42)
 d2_subject3 <- c(36, 36, 38)
 data2 <- data.frame(d2_subject1, d2_subject2, d2_subject3)
 
-dep_ci(data1, data2)
+# dep_ci(data1, data2)
 ```
 
 The error message states that there cannot be a missing value in either dataframe. The NA value in data1 (d1_subject3) must either be replaced with an imputed value, or subject 3's results must be discarded in order to use either function.

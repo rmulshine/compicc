@@ -28,6 +28,8 @@
 #' rater2Data <- data.frame(subject4_test2, subject5_test2, subject6_test2)
 #'
 #' indep_ci(rater1Data, rater2Data)
+#'
+#' @export
 
 indep_ci <- function(data1, data2) {
   if(ncol(data1) != ncol(data2)) {stop("number of columns in data1 must equal that of data2")}

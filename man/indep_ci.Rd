@@ -32,7 +32,7 @@ Used when a different set of subjects are tested in each dataframe.
 subject1_test1 <- c(46, 42, 43)
 subject2_test1 <- c(34, 35, 34)
 subject3_test1 <- c(51, 48, 54)
-rater1Data <- data.frame(subject1_run1, subject2_test1, subject3_test1)
+rater1Data <- data.frame(subject1_test1, subject2_test1, subject3_test1)
 
 subject4_test2 <- c(26, 25, 28)
 subject5_test2 <- c(43, 45, 45)

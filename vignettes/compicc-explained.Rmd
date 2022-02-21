@@ -1,10 +1,10 @@
 ---
 title: "compicc Explained"
-authors: "Riley Mulshine" and "Alan Huebner"
-date: "02/12/2022"
+author: "Riley Mulshine, Alan Huebner"
+date: "02/21/2022"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{compicc-explained}
+  %\VignetteIndexEntry{compicc Explained}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

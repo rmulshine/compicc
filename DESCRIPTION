@@ -3,9 +3,8 @@ Type: Package
 Title: Calculate the Confidence Interval for the Difference of ICCs
 Version: 0.1.0
 Authors@R:
-    c(person(given = "Riley", family = "Mulshine", email = "rmulshi2@nd.edu", role = c("aut", "cre"),
+    c(person(given = "Riley", family = "Mulshine", email = "rmulshi2@nd.edu", role = c("aut", "cre")),
     person(given = "Alan", family = "Huebner", email = "alan.huebner.10@nd.edu", role = "aut"))
-Maintainer: rmulshi2@nd.edu
 Description: Contains functions to calculate the 95% confidence interval for
     the difference between the intraclass correlation coefficients (ICCs) of
     two datasets. The package contains two functions: one for two dependent

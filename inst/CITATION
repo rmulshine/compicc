@@ -1,0 +1,8 @@
+citHeader("To cite compicc in publications, use:")
+
+citEntry(entry = "Misc",
+         title = "{compicc}: Calculate the Confidence Interval for the Difference of ICCs",
+         author = personList(as.person("Alan Huebner"), as.person("Riley Mulshine")),
+         year = "2022",
+         textVersion = paste("Huebner and Mulshine (2022).", "compicc: Calculate the Confidence Interval for the Difference of ICCs.")
+         )

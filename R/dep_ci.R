@@ -65,7 +65,7 @@ dep_ci <- function(data1, data2) {
     }
   }
 
-  p12 <- cor(vals_1, vals_2, method = "pearson")
+  p12 <- stats::cor(vals_1, vals_2, method = "pearson")
 
   k_1 <- ncol(data1)
   k_2 <- ncol(data2)

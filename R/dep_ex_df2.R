@@ -1,4 +1,4 @@
-#' Testing Scores of 100 Subjects from Rater 2 in Dependent Case
+#' Testing Scores of 100 Subjects from Rater/Time 2 in Dependent Case
 #'
 #' A dataset containing scores with 4 trials for 100 subjects taken by
 #' the second rater/time. This is to be used in an example for the case of

@@ -4,12 +4,14 @@
 \alias{indep_ci}
 \title{Confidence Interval of the difference between two independent ICCs}
 \usage{
-indep_ci(data1, data2)
+indep_ci(data1, data2, conf_level = 0.95)
 }
 \arguments{
 \item{data1}{A dataframe in wide format}
 
 \item{data2}{A dataframe in wide format}
+
+\item{conf_level}{The confidence level of the confidence interval; defaults to 0.95 (95\%).}
 }
 \value{
 A list with 3 elements:
@@ -18,7 +20,7 @@ ICC of data1 (\code{$icc_1})
 
 ICC of data2 (\code{$icc_2})
 
-95\% confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceInterval})
+Confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
 
 The confidence interval is a 1x2 dataframe with calls \code{$lowerBound} and \code{$upperBound} for the bounds of the interval
 }
@@ -40,5 +42,6 @@ subject6_test2 <- c(30, 31, 31)
 rater2Data <- data.frame(subject4_test2, subject5_test2, subject6_test2)
 
 indep_ci(rater1Data, rater2Data)
+indep_ci(rater1Data, rater2Data, conf_level = 0.90)
 
 }

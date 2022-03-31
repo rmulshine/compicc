@@ -35,8 +35,8 @@ The **dep_ci()** function is called with three inputs: data1, data2 and conf_lev
 
 The function will return 3 values:
 
-* data1ICC: intraclass correlation coefficient of data1
-* data2ICC: intraclass correlation coefficient of data2
+* data1ICC: ICC of data1
+* data2ICC: ICC of data2
 * confidenceIntervalDifference: 1x2 dataframe with the lower bound and upper bound of the confidence interval for the difference of the ICC of data1 and data2
     * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
     * confidenceIntervalDifference$upperBound: upper bound of confidence interval
@@ -51,8 +51,8 @@ The **indep_ci()** function is called with three inputs: data1, data2 and conf_l
 
 The function will return 3 values:
 
-* data1ICC: intraclass correlation coefficient of data1
-* data2ICC: intraclass correlation coefficient of data2
+* data1ICC: ICC of data1
+* data2ICC: ICC of data2
 * confidenceIntervalDifference: 1x2 dataframe with the lower bound and upper bound of the confidence interval for the difference between the ICC of data1 and data2
     * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
     * confidenceIntervalDifference$upperBound: upper bound of confidence interval
@@ -76,7 +76,7 @@ In the independent example, **indep_ex_df1** may refer to the measurements of 10
 
 # 3. Using the Functions with the Included Data
 
-The dataframes included in this package provide correctly formatted, easily accessible data with which the package's functions can be run. The purpose of this is to demonstrate the functions' returns and interpretation. Both the dependent and independent case are used as examples.
+The dataframes included in this package provide correctly formatted, easily accessible data with which the package's functions can be run. The purpose of this is to demonstrate the functions' outputs and interpretation. Both the dependent and independent case are used as examples.
 
 ## 3.1. Example with Dependent Data
 
@@ -102,7 +102,7 @@ The function yields the following output:
     * Lower bound of confidence interval = result\$confidenceIntervalDifference\$lowerBound = `r result$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result\$confidenceIntervalDifference\$upperBound = `r result$confidenceIntervalDifference$upperBound`
 
-In this case, we are 95% confident that the true difference between the ICC of dep_ex_df1 and the ICC of dep_ex_df2 lies in (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial time and the sensor at the final time are not equal. This means the ICC of the sensor has changed over time.
+In this case, we are 95% confident that the true difference between the ICC of dep_ex_df1 and the ICC of dep_ex_df2 lies in the interval (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial time and the sensor at the final time are not equal. This means the ICC of the sensor has changed over time.
 
 ## 3.2. Example with Independent Data
 
@@ -128,7 +128,7 @@ The function yields the following output:
     * Lower bound of confidence interval = result2\$confidenceIntervalDifference\$lowerBound = `r result2$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result2\$confidenceIntervalDifference\$upperBound = `r result2$confidenceIntervalDifference$upperBound`
 
-In this case, we are 90% confident that the true difference between the ICC of indep_ex_df1 and the ICC of indep_ex_df2 lies in (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICC of Rater 1 and the true ICC of Rater 2 are unequal.
+In this case, we are 90% confident that the true difference between the ICC of indep_ex_df1 and the ICC of indep_ex_df2 lies in the interval (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICC of Rater 1 and the true ICC of Rater 2 are unequal.
 
 # 4. Frequent Errors
 
@@ -195,7 +195,7 @@ data2 <- data.frame(d2_trial1, d2_trial2, d2_trial3)
 dep_ci(data1, data2)
 ```
 
-The error message states that there cannot be a missing value in either dataframe. The NA value in data1 (d1_subject3) must either be replaced with an imputed value, or subject 3's results must be discarded in order to use either function.
+The error message states that there cannot be a missing value in either dataframe. The NA value in data1 (d1_trial3) must either be replaced with an imputed value, or subject 2's results must be discarded in order to use either function.
 
 # 5. Description of Calculations
 

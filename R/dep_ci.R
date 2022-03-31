@@ -6,6 +6,7 @@
 #'
 #' @param data1 A dataframe in wide format
 #' @param data2 A dataframe in wide format
+#' @param conf_level The confidence level of the confidence interval; defaults to 0.95 (95%).
 #'
 #' @return A list with 3 elements:
 #'
@@ -13,7 +14,7 @@
 #'
 #' ICC of data2 (\code{$icc_2})
 #'
-#' 95% confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceInterval})
+#' Confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
 #'
 #' The confidence interval is a 1x2 dataframe with calls \code{$lowerBound} and \code{$upperBound} for the bounds of the interval
 #'
@@ -28,16 +29,17 @@
 #' rater2Data <- data.frame(subject1_test2, subject2_test2, subject3_test2)
 #'
 #' dep_ci(rater1Data, rater2Data)
+#' dep_ci(rater1Data, rater2Data, conf_level = 0.99)
 #'
 #' @export
 
-dep_ci <- function(data1, data2) {
+dep_ci <- function(data1, data2, conf_level = 0.95) {
   if(ncol(data1) != ncol(data2)) {stop("number of columns in data1 must equal that of data2")}
   if(nrow(data1) != nrow(data2)) {stop("number of rows in data1 must equal that of data2")}
   if(any(is.na(data1 & data2)) == TRUE) {stop("cannot have NA values in dataframe")}
 
-  icc_1 <- irr::icc(data1, model = "twoway", type = "agreement", unit = "single")
-  icc_2 <- irr::icc(data2, model = "twoway", type = "agreement", unit = "single")
+  icc_1 <- irr::icc(data1, model = "twoway", type = "agreement", unit = "single", conf.level = conf_level)
+  icc_2 <- irr::icc(data2, model = "twoway", type = "agreement", unit = "single", conf.level = conf_level)
 
   icc_1_lower <- icc_1$lbound
   icc_1_upper <- icc_1$ubound
@@ -82,7 +84,7 @@ dep_ci <- function(data1, data2) {
   CI_df <- data.frame(lowerBound, upperBound)
 
   CI_list <- list(icc_1$value, icc_2$value, CI_df)
-  names(CI_list) <- c("data1ICC", "data2ICC", "confidenceInterval")
+  names(CI_list) <- c("data1ICC", "data2ICC", "confidenceIntervalDifference")
 
   return(CI_list)
 }

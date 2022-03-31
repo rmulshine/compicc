@@ -8,4 +8,4 @@
 #' set of 100 subjects.
 #'
 #' @format A dataframe with 80 rows and 4 columns
-"indep_ex_df1"
+"indep_ex_df2"

@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R:
     c(person(given = "Riley", family = "Mulshine", email = "rmulshi2@nd.edu", role = c("aut", "cre")),
     person(given = "Alan", family = "Huebner", email = "alan.huebner.10@nd.edu", role = "aut"))
-Description: Contains functions to calculate the 95% confidence interval for
+Description: Contains functions to calculate the confidence interval for
     the difference between the intraclass correlation coefficients (ICCs) of
     two datasets. The package contains two functions: one for two dependent
     datasets and one for two independent datasets. The method for calculating

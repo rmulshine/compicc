@@ -63,14 +63,14 @@ The confidence interval represents the interval for the difference *ICC(data1) -
 
 The compicc package contains four datasets so that the user may work through examples of the functions within the package. `dep_df1` and `dep_df2` are the dataframes for the dependent case, and `indep_df1` and `indep_df2` are the dataframes for the independent case.
 
-Initially, consider the two dependent dataframes, `dep_df1` and `dep_df2`. Both consist of simulated data of 4 trials of measurements for 100 subjects. The data represents a hypothetical score assigned to the subjects, where the overall mean score is zero. Such an example could be the measurements of subjects by a sensor at two times, and the user is looking to quantify how the sensor's reliability has changed over time. Each dataframe contains the same 100 subjects (paired observations), meaning the dataframes are dependent. The dataframes are in wide format, meaning each row represents the measurements of one subject across four trials split column-wise. This format is required for all functions in the compicc package to run. Displayed below are the first few rows of `dep_df1` to show the proper formatting of the datasets.
+Initially, consider the two dependent dataframes, `dep_df1` and `dep_df2`. Both consist of simulated data of four trials of measurements for 100 subjects. The data represents a hypothetical score assigned to the subjects, where the overall mean score is zero. Such an example could be the measurements of subjects by a sensor at two times, and the user is looking to quantify how the sensor's reliability has changed over time. Each dataframe contains the same 100 subjects (paired observations), meaning the dataframes are dependent. The dataframes are in wide format, meaning each row represents the measurements of one subject across four trials split column-wise. This format is required for all functions in the compicc package to run. Displayed below are the first few rows of `dep_df1` to show the proper formatting of the datasets.
 
 ```{r, echo = F}
 head(dep_df1)
 ```
 
 
-In contrast, `indep_df1` and `indep_df2` consist of simulated data of 4 trials of measurements for 100 and 80 subjects each, respectively. In this case, consider the situation where the 100 subjects tested in the first dataframe are different than the 80 subjects tested in the second dataframe (i.e. the two samples are independent or non-overlapping). An example of this application is each dataframe containing measurements from one rater, and the user is interested in comparing the reliability of the rater across dataframes. Like the dependent case, both dataframes are in wide format with rows representing the subjects and columns representing the trials.
+In contrast, `indep_df1` and `indep_df2` consist of simulated data of four trials of measurements for 100 and 80 subjects each, respectively. In this case, consider the situation where the 100 subjects tested in the first dataframe are different than the 80 subjects tested in the second dataframe (i.e. the two samples are independent or non-overlapping). An example of this application is each dataframe containing measurements from one rater, and the user is interested in comparing the reliability of the rater across dataframes. Like the dependent case, both dataframes are in wide format with rows representing the subjects and columns representing the trials.
 
 **Note**: Observe that the number of subjects is equal in both dataframes in the dependent case. This is required, since every subject of each dataframe must be found in the other dataframe. This is not the case in the independent dataframes: since the two independent dataframes have completely different sets of subjects, they are allowed to have a different number of subjects/rows.
 
@@ -125,10 +125,10 @@ The function yields the following output:
 * ICC of indep_df1 = `result2$data1ICC` = `r result2$data1ICC`
 * ICC of indep_df2 = `result2$data2ICC` = `r result2$data2ICC`
 * Confidence interval for the difference between indep_df1 ICC and indep_df2 ICC = `result2$confidenceIntervalDifference`
-    * Lower bound of confidence interval = result2\$confidenceIntervalDifference\$lowerBound = `r result2$confidenceIntervalDifference$lowerBound`
-    * Upper bound of confidence interval = result2\$confidenceIntervalDifference\$upperBound = `r result2$confidenceIntervalDifference$upperBound`
+    * Lower bound of confidence interval = `result2$confidenceIntervalDifference$lowerBound` = `r result2$confidenceIntervalDifference$lowerBound`
+    * Upper bound of confidence interval = `result2$confidenceIntervalDifference$upperBound` = `r result2$confidenceIntervalDifference$upperBound`
 
-In this case, we are 90% confident that the true difference between the ICC of indep_df1 and the ICC of indep_df2 lies in the interval (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICCs of the two dataframes differ.
+In this case, we are 90% confident that the true difference between the ICC of `indep_df1` and the ICC of `indep_df2` lies in the interval (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICCs of the two dataframes differ.
 
 # 4. Frequent Errors
 
@@ -136,7 +136,7 @@ To demonstrate the possible errors encountered when using the functions in the c
 
 ## 4.1. Unequal Number of Trials
 
-To compute the ICC of a dataframe, every subject must go through the same number of trials during testing. In other words, each row in the dataframe must have the same number of columns of present data. Similarly, each dataframe being compared must have the same number of trials/columns. This means if dataframe 1 consists of 4 trials per subject, dataframe 2 must consist of exactly 4 trials per subject. An example of dataframes violating this condition is:
+To compute the ICC of a dataframe, every subject must go through the same number of trials during testing. In other words, each row in the dataframe must have the same number of columns. Similarly, each dataframe being compared must have the same number of trials/columns. This means if dataframe 1 consists of four trials per subject, dataframe 2 must consist of exactly four trials per subject. An example of dataframes violating this condition is:
 
 ``` {r, error = T}
 d1_trial1 <- c(34, 33, 36)
@@ -153,7 +153,7 @@ data2 <- data.frame(d2_trial1, d2_trial2, d2_trial3, d2_trial4)
 indep_ci(data1, data2)
 ```
 
-The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes. This error applies to both the `dep_ci()` and `indep_ci()` functions.
+The dataframe `data1` consists of three trials per subject, but `data2` holds four trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes. This error applies to both the `dep_ci()` and `indep_ci()` functions.
 
 ## 4.2. Unequal Number of Observations (Dependent case only)
 
@@ -231,11 +231,13 @@ Where:
 
 $\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
 
-$\widehat{\rho_1}$ and $\widehat{\rho_2}$ are the point estimates of the two dataframes' ICCs, $l_1$ and $u_1$ are the lower and upper bounds of the CI of the ICC of dataframe 1, $l_2$ and $u_2$ are the lower and upper bounds of the CI of the ICC of dataframe 2.
+$\widehat{\rho_1}$ and $\widehat{\rho_2}$ are the point estimates of the two dataframes' ICCs, $l_1$ and $u_1$ are the lower and upper bounds of the CI of the ICC of dataframe 1, $l_2$ and $u_2$ are the lower and upper bounds of the CI of the ICC of dataframe 2, $k_1$ and $k_2$ are the number of trials for dataframe 1 and dataframe 2.
 
 For further reading into the calculations used in this package, refer to Ramasundarahettige et al. (2009).
 
 # 6. References
+
+de Vet, H.C., Terwee, C.B., Mokknink, L. B., & Knol, D.L. (2011). Measurement in medicine: A practical guide. New York, NY: Cambridge University Press.
 
 Matthias Gamer, Jim Lemon and Ian Fellows Puspendra Singh <puspendra.pusp22@gmail.com> (2019). irr: Various Coefficients of Interrater Reliability and Agreement. R package version 0.84.1. https://CRAN.R-project.org/package=irr
 

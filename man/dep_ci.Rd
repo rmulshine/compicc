@@ -2,7 +2,7 @@
 % Please edit documentation in R/dep_ci.R
 \name{dep_ci}
 \alias{dep_ci}
-\title{Confidence Interval of the difference between two dependent ICCs}
+\title{Confidence Interval for the difference between two dependent ICCs}
 \usage{
 dep_ci(data1, data2, conf_level = 0.95)
 }
@@ -11,7 +11,7 @@ dep_ci(data1, data2, conf_level = 0.95)
 
 \item{data2}{A dataframe in wide format}
 
-\item{conf_level}{The confidence level of the confidence interval; defaults to 0.95 (95\%).}
+\item{conf_level}{The confidence level of the confidence interval; defaults to 0.95.}
 }
 \value{
 A list with 3 elements:
@@ -20,15 +20,15 @@ ICC of data1 (\code{$icc_1})
 
 ICC of data2 (\code{$icc_2})
 
-Confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
+Confidence interval for the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
 
 The confidence interval is a 1x2 dataframe with calls \code{$lowerBound} and \code{$upperBound} for the bounds of the interval
 }
 \description{
-Confidence Interval of the difference between two dependent ICCs
+Confidence Interval for the difference between two dependent ICCs
 }
 \details{
-Used when the same subjects are tested in each dataframe.
+Used when the same subjects are tested in each dataframe. The wide format for the dataframe means that the subjects constitute the rows, and the multiple trials per subject constitute the columns of the dataframe.
 }
 \examples{
 subject1_test1 <- c(46, 42, 43)

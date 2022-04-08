@@ -2,7 +2,7 @@
 % Please edit documentation in R/indep_ci.R
 \name{indep_ci}
 \alias{indep_ci}
-\title{Confidence Interval of the difference between two independent ICCs}
+\title{Confidence Interval for the difference between two independent ICCs}
 \usage{
 indep_ci(data1, data2, conf_level = 0.95)
 }
@@ -20,15 +20,15 @@ ICC of data1 (\code{$icc_1})
 
 ICC of data2 (\code{$icc_2})
 
-Confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
+Confidence interval for the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
 
 The confidence interval is a 1x2 dataframe with calls \code{$lowerBound} and \code{$upperBound} for the bounds of the interval
 }
 \description{
-Confidence Interval of the difference between two independent ICCs
+Confidence Interval for the difference between two independent ICCs
 }
 \details{
-Used when a different set of subjects are tested in each dataframe.
+Used when a different set of subjects are tested in each dataframe. The wide format for the dataframe means that the subjects constitute the rows, and the multiple trials per subject constitute the columns of the dataframe.
 }
 \examples{
 subject1_test1 <- c(46, 42, 43)

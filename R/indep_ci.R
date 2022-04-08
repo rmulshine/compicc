@@ -1,8 +1,8 @@
-#' Confidence Interval of the difference between two independent ICCs
+#' Confidence Interval for the difference between two independent ICCs
 #'
-#' Confidence Interval of the difference between two independent ICCs
+#' Confidence Interval for the difference between two independent ICCs
 #'
-#' Used when a different set of subjects are tested in each dataframe.
+#' Used when a different set of subjects are tested in each dataframe. The wide format for the dataframe means that the subjects constitute the rows, and the multiple trials per subject constitute the columns of the dataframe.
 #'
 #' @param data1 A dataframe in wide format
 #' @param data2 A dataframe in wide format
@@ -14,7 +14,7 @@
 #'
 #' ICC of data2 (\code{$icc_2})
 #'
-#' Confidence interval of the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
+#' Confidence interval for the difference between the ICC of data1 and the ICC of data2 (\code{$confidenceIntervalDifference})
 #'
 #' The confidence interval is a 1x2 dataframe with calls \code{$lowerBound} and \code{$upperBound} for the bounds of the interval
 #'

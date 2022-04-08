@@ -1,7 +1,7 @@
 ---
 title: "compicc Explained"
 author: "Riley Mulshine, Alan Huebner"
-date: "02/21/2022"
+date: "04/08/2022"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{compicc Explained}
@@ -11,9 +11,9 @@ vignette: >
 
 # 1. Summary
 
-The compicc package is intended for practicioners in a wide range of fields, most notably psychology, medicine, and sports science. It allows users to compare the reliability of two measurement systems or one system at two different time points. For example, one could compare the reliability of two different medical practicioners' measurements on patients' shoulder mobility in degrees of rotation. Similarly, a coach could study the reliability of a force plate measuring athletes' physical performances at two time points a year apart to determine if the system's reliability has drifted.
+The compicc package is intended for practicioners in a wide range of fields, most notably psychology, medicine, and sports science. It allows users to compare the reliability of two measurement systems or one system at two different time points. Specifically, the functions calculate a (1-$\alpha$)% confidence interval (CI) for the difference between two intraclass correlation coefficients (ICCs). These methods were first proposed by Ramasundarahettige et al. (2009). For example, one could compare the reliability of two different medical practicioners' measurements on patients' shoulder mobility in degrees of rotation.
 
-The two functions in compicc calculate the confidence interval with a user-defined confidence level of the difference of one dataframe's intraclass correlation coefficient (ICC) versus another dataframe's ICC. These two functions are **dep_ci()** and **indep_ci()**, whose uses will be explained in Section 2.
+There are two functions in compicc, **dep_ci()** and **indep_ci()**. The **dep_ci()** function calculates the difference of ICCs for the dependent case, when the two samples consist of the same subjects. On the other hand, the **indep_ci()** function calculates the difference of ICCs for the independent case, when the two samples consist of different subjects.
 
 In addition, the package contains two sets of two dataframes (four total dataframes) to be used as demonstrations of the functions' capabilities. These dataframes are titled **dep_ex_df1** and **dep_ex_df2**, as well as **indep_ex_df1** and **indep_ex_df2**. In Section 3, this document will call the package's functions with these sets of dataframes and interpret the results for instructional purposes.
 
@@ -29,60 +29,60 @@ The compicc package includes two different functions: **dep_ci()** and **indep_c
 
 ## 2.1. Confidence Interval for Dependent Data: dep_ci()
 
-Dependent data refers to the scenario in which the same set of subjects were tested in each dataset. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
+Dependent data refers to the scenario in which the two dataframes consist of the same set of subjects. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
 
-The **dep_ci()** function is called with three inputs: data1, data2 and conf_level. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared. The input conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
+The **dep_ci()** function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
 
-The function will return 3 values:
+The function returns 3 values:
 
 * data1ICC: ICC of data1
 * data2ICC: ICC of data2
-* confidenceIntervalDifference: 1x2 dataframe with the lower bound and upper bound of the confidence interval for the difference of the ICC of data1 and data2
+* confidenceIntervalDifference: dataframe with the lower bound and upper bound of the confidence interval for the difference of the ICC of data1 and data2
     * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
     * confidenceIntervalDifference$upperBound: upper bound of confidence interval
 
-The confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+The confidence interval represents the interval for the difference *ICC(data1) - ICC(data2)*.
 
 ## 2.2. Confidence Interval for Inependent Data: indep_ci()
 
-Independent data refers to the scenario in which an entirely different set of subjects were tested from one dataset to the next. This means there are no subjects who were tested in both the first dataframe and the second dataframe.
+Independent data refers to the scenario in which the two dataframes consist of an entirely different set of subjects. This means there are no subjects who were tested in both the first dataframe and the second dataframe.
 
-The **indep_ci()** function is called with three inputs: data1, data2 and conf_level. The input data1 refers to the first dataset being compared, and data2 refers to the second dataset being compared. The input conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
+The **indep_ci()** function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
 
-The function will return 3 values:
+The function returns 3 values:
 
 * data1ICC: ICC of data1
 * data2ICC: ICC of data2
-* confidenceIntervalDifference: 1x2 dataframe with the lower bound and upper bound of the confidence interval for the difference between the ICC of data1 and data2
+* confidenceIntervalDifference: dataframe with the lower bound and upper bound of the confidence interval for the difference between the ICC of data1 and data2
     * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
     * confidenceIntervalDifference$upperBound: upper bound of confidence interval
 
-The confidence interval will represent the value *ICC(data1) - ICC(data2)*.
+The confidence interval represents the interval for the difference *ICC(data1) - ICC(data2)*.
 
 ## 2.3. Included Data
 
-The compicc package contains four internal datasets that come installed with the package. These dataframes are provided so that the user may see and work through an example of the functions within the package. The four dataframes shall be grouped into two sets: one set consisting of two dependent dataframes, and the other set consisting of two independent dataframes.
+The compicc package contains four datasets so that the user may work through an example of the functions within the package. **dep_ex_df1** and **dep_ex_df2** are the dataframes for the dependent case, and **indep_ex_df1** and **indep_ex_df2** are the dataframes for the independent case.
 
-Initially, consider the two dependent dataframes, **dep_ex_df1** and **dep_ex_df2**. Both consist of simulated data of 4 trials of measurements for 100 subjects. The data represents a hypothetical score assigned to the subjects, where the overall mean score is zero. Each dataframe contains the same 100 subjects (paired observations), meaning the dataframes are dependent. The dataframes are in wide format, meaning each row represents the measurements of one subject across four trials split column-wise. This format is required for all functions in the compicc package to run.
+Initially, consider the two dependent dataframes, **dep_ex_df1** and **dep_ex_df2**. Both consist of simulated data of 4 trials of measurements for 100 subjects. The data represents a hypothetical score assigned to the subjects, where the overall mean score is zero. Such an example could be the measurements of subjects by a sensor at two times, and the user is looking to quantify how the sensor's reliability has changed over time. Each dataframe contains the same 100 subjects (paired observations), meaning the dataframes are dependent. The dataframes are in wide format, meaning each row represents the measurements of one subject across four trials split column-wise. This format is required for all functions in the compicc package to run. Displayed below are the first few rows of **dep_ex_df1** to show the proper formatting of the datasets.
 
-In this example, **dep_ex_df1** contains the measurements of the 100 subjects by a sensor at an initial time. Then, **dep_ex_df2** contains the measurements of the same 100 subjects by the same sensor at a final time. In such an instance, the user would be looking to quantify how the sensor's reliability has changed over time.
+```{r, echo = F}
+head(dep_ex_df1)
+```
 
 
-Meanwhile, **indep_ex_df1** and **indep_ex_df2** consist of simulated data of 4 trials of measurements for 100 and 80 subjects each, respectively. In this case, consider the situation where the 100 subjects tested in the first dataframe are completely different than the 80 subjects tested in the second dataframe. Since none of the subjects across the two dataframes are matching, the two are independent of one another. Like the dependent case, both dataframes are in wide format with rows representing the subjects and columns representing the trials.
-
-In the independent example, **indep_ex_df1** may refer to the measurements of 100 subjects by a certain rater, Rater 1. Then, **indep_ex_df2** refers to the measurements of 80 different subjects by another rater, Rater 2. For this application, one would be interested in comparing the difference of the reliability of Rater 1 and Rater 2.
+In contrast, **indep_ex_df1** and **indep_ex_df2** consist of simulated data of 4 trials of measurements for 100 and 80 subjects each, respectively. In this case, consider the situation where the 100 subjects tested in the first dataframe are different than the 80 subjects tested in the second dataframe (i.e. the two samples are independent or non-overlapping). An example of this application is each dataframe containing measurements from one rater, and the user is interested in comparing the reliability of the rater across dataframes. Like the dependent case, both dataframes are in wide format with rows representing the subjects and columns representing the trials.
 
 **Note**: Observe that the number of subjects is equal in both dataframes in the dependent case. This is required, since every subject of each dataframe must be found in the other dataframe. This is not the case in the independent dataframes: since the two independent dataframes have completely different sets of subjects, they are allowed to have a different number of subjects/rows.
 
 # 3. Using the Functions with the Included Data
 
-The dataframes included in this package provide correctly formatted, easily accessible data with which the package's functions can be run. The purpose of this is to demonstrate the functions' outputs and interpretation. Both the dependent and independent case are used as examples.
+This package provides easily accessible data with the included datasets. The purpose of this is to demonstrate the functions' outputs and interpretation. Both the dependent and independent case are used as examples.
 
 ## 3.1. Example with Dependent Data
 
 This section provides an example of the usage of the **dep_ci()** function with the package's provided datasets.
 
-The inputs of the **dep_ci()** function are:
+The arguments of the **dep_ci()** function are:
 
 * data1: the first dataframe (must be in wide format)
 * data2: the second dataframe (must be in wide format)

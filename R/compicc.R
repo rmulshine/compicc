@@ -10,10 +10,13 @@
 #'   subjects were tested in each dataset, the independent function
 #'   \code{indep_ci} should be used.
 #'
-#'   The package includes 4 dataframes. The dataframes dep_ex_df1 and
-#'   dep_ex_df2 can be used as examples with the function (\code{dep_ci()}),
-#'   while the dataframes indep_ex_df1 and indep_ex_df2 can be used as examples
+#'   The package includes 4 dataframes. The dataframes dep_df1 and
+#'   dep_df2 can be used as examples with the function (\code{dep_ci()}),
+#'   while the dataframes indep_df1 and indep_df2 can be used as examples
 #'   with the function (\code{indep_ci()}).
+#'
+#'   The method to calculate the confidence interval was first proposed by
+#'   Ramasundarahettige et al. (2009).
 #'
 #' @docType package
 #' @name compicc

@@ -13,7 +13,7 @@ vignette: >
 
 The compicc package is intended for practicioners in a wide range of fields, most notably psychology, medicine, and sports science. It allows users to compare the reliability of two measurement systems or one system at two different time points. Specifically, the functions calculate a (1-$\alpha$)% confidence interval (CI) for the difference between two intraclass correlation coefficients (ICCs). These methods were first proposed by Ramasundarahettige et al. (2009). For example, one could compare the reliability of two different medical practicioners' measurements on patients' shoulder mobility in degrees of rotation.
 
-There are two functions in compicc, **dep_ci()** and **indep_ci()**. The **dep_ci()** function calculates the difference of ICCs for the dependent case, when the two samples consist of the same subjects. On the other hand, the **indep_ci()** function calculates the difference of ICCs for the independent case, when the two samples consist of different subjects.
+There are two functions in compicc, `dep_ci()` and `indep_ci()`. The `dep_ci()` function calculates the difference of ICCs for the dependent case, when the two samples consist of the same subjects. On the other hand, the `indep_ci()` function calculates the difference of ICCs for the independent case, when the two samples consist of different subjects.
 
 In addition, the package contains two sets of two dataframes (four total dataframes) to be used as demonstrations of the functions' capabilities. These dataframes are titled **dep_ex_df1** and **dep_ex_df2**, as well as **indep_ex_df1** and **indep_ex_df2**. In Section 3, this document will call the package's functions with these sets of dataframes and interpret the results for instructional purposes.
 
@@ -25,21 +25,21 @@ library(compicc)
 
 # 2. Included Elements
 
-The compicc package includes two different functions: **dep_ci()** and **indep_ci()**. Determining which function to use depends on whether the same set of subjects or a different set of subjects were tested in each dataset being compared.
+The compicc package includes two different functions: `dep_ci()` and `indep_ci()`. Determining which function to use depends on whether the same set of subjects or a different set of subjects were tested in each dataset being compared.
 
 ## 2.1. Confidence Interval for Dependent Data: dep_ci()
 
 Dependent data refers to the scenario in which the two dataframes consist of the same set of subjects. For example, observations in row 1 of the first dataset are taken from the same subject as observations in row 1 of the second dataset. This holds true for every row of data, so the observations between datasets are "matched."
 
-The **dep_ci()** function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
+The `dep_ci()` function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
 
 The function returns 3 values:
 
-* data1ICC: ICC of data1
-* data2ICC: ICC of data2
-* confidenceIntervalDifference: dataframe with the lower bound and upper bound of the confidence interval for the difference of the ICC of data1 and data2
-    * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
-    * confidenceIntervalDifference$upperBound: upper bound of confidence interval
+* `data1ICC`: ICC of data1
+* `data2ICC`: ICC of data2
+* `confidenceIntervalDifference`: dataframe with the lower bound and upper bound of the confidence interval for the difference of the ICC of data1 and data2
+    * `confidenceIntervalDifference$lowerBound`: lower bound of confidence interval
+    * `confidenceIntervalDifference$upperBound`: upper bound of confidence interval
 
 The confidence interval represents the interval for the difference *ICC(data1) - ICC(data2)*.
 
@@ -47,15 +47,15 @@ The confidence interval represents the interval for the difference *ICC(data1) -
 
 Independent data refers to the scenario in which the two dataframes consist of an entirely different set of subjects. This means there are no subjects who were tested in both the first dataframe and the second dataframe.
 
-The **indep_ci()** function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
+The `indep_ci()` function is called with three arguments: data1, data2 and conf_level. The arguments data1 and data2 refer to the two different datasets. The argument conf_level refers to the confidence level of the confidence interval. This value defaults to 0.95 when not defined by the user, representing a 95% confidence interval.
 
 The function returns 3 values:
 
-* data1ICC: ICC of data1
-* data2ICC: ICC of data2
-* confidenceIntervalDifference: dataframe with the lower bound and upper bound of the confidence interval for the difference between the ICC of data1 and data2
-    * confidenceIntervalDifference$lowerBound: lower bound of confidence interval
-    * confidenceIntervalDifference$upperBound: upper bound of confidence interval
+* `data1ICC`: ICC of data1
+* `data2ICC`: ICC of data2
+* `confidenceIntervalDifference`: dataframe with the lower bound and upper bound of the confidence interval for the difference between the ICC of data1 and data2
+    * `confidenceIntervalDifference$lowerBound`: lower bound of confidence interval
+    * `confidenceIntervalDifference$upperBound`: upper bound of confidence interval
 
 The confidence interval represents the interval for the difference *ICC(data1) - ICC(data2)*.
 
@@ -80,15 +80,15 @@ This package provides easily accessible data with the included datasets. The pur
 
 ## 3.1. Example with Dependent Data
 
-This section provides an example of the usage of the **dep_ci()** function with the package's provided datasets.
+This section provides an example of the usage of the `dep_ci()` function with the package's provided datasets.
 
-The arguments of the **dep_ci()** function are:
+The arguments of the `dep_ci()` function are:
 
-* data1: the first dataframe (must be in wide format)
-* data2: the second dataframe (must be in wide format)
-* conf_level: confidence level of the confidence interval (defaults to 0.95 when not specified)
+* `data1`: the first dataframe (must be in wide format)
+* `data2`: the second dataframe (must be in wide format)
+* `conf_level`: confidence level of the confidence interval (defaults to 0.95 when not specified)
 
-Say the user wanted to compute a 95% confidence interval for the difference between the ICC of **dep_ex_df1** and **dep_ex_df2**, storing the output in a variable called *result*. Remember in this example, dep_ex_df1 represents measurements of 100 subjects from a sensor at an initial time, and dep_ex_df2 represents the same sensor's measurements of the same 100 subjects at a final time. The user shall proceed with the following function:
+For example, the following code computes a 95% confidence interval for the difference between the ICC of **dep_ex_df1** and **dep_ex_df2**, storing the output in a variable called *result*:
 
 ```{r}
 result <- dep_ci(dep_ex_df1, dep_ex_df2)
@@ -96,23 +96,23 @@ result <- dep_ci(dep_ex_df1, dep_ex_df2)
 
 The function yields the following output:
 
-* ICC of dep_ex_df1 = result\$data1ICC = `r result$data1ICC`
-* ICC of dep_ex_df2 = result\$data2ICC = `r result$data2ICC`
-* Confidence interval for the difference between dep_ex_df1 ICC and dep_ex_df2 ICC = result$confidenceIntervalDifference
+* ICC of dep_ex_df1 = `result$data1ICC` = `r result$data1ICC`
+* ICC of dep_ex_df2 = `result$data2ICC` = `r result$data2ICC`
+* Confidence interval for the difference between dep_ex_df1 ICC and dep_ex_df2 ICC = `result$confidenceIntervalDifference`
     * Lower bound of confidence interval = result\$confidenceIntervalDifference\$lowerBound = `r result$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result\$confidenceIntervalDifference\$upperBound = `r result$confidenceIntervalDifference$upperBound`
 
-In this case, we are 95% confident that the true difference between the ICC of dep_ex_df1 and the ICC of dep_ex_df2 lies in the interval (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial time and the sensor at the final time are not equal. This means the ICC of the sensor has changed over time.
+In this case, we are 95% confident that the true difference between the ICC of dep_ex_df1 and the ICC of dep_ex_df2 lies in the interval (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial and final timea are not equal. This means the reliability of the sensor has changed over time.
 
 ## 3.2. Example with Independent Data
 
-This section provides an example of the usage of the **indep_ci()** function with the package's provided datasets.
+This section provides an example of the usage of the `indep_ci()` function with the package's provided datasets.
 
-The inputs of the **indep_ci()** function are:
+The inputs of the `indep_ci()` function are:
 
-* data1: the first dataframe (must be in wide format)
-* data2: the second dataframe (must be in wide format)
-* conf_level: confidence level of the confidence interval (defaults to 0.95 when not specified)
+* `data1`: the first dataframe (must be in wide format)
+* `data2`: the second dataframe (must be in wide format)
+* `conf_level`: confidence level of the confidence interval (defaults to 0.95 when not specified)
 
 This time, the user wants to compute a 90% confidence interval for the difference between the ICC of **indep_ex_df1** and **indep_ex_df2**, storing the output in a variable called *result2*. Recall in this scenario, indep_ex_df1 contains the measurements of 100 subjects by Rater 1, and indep_ex_df2 contains the measurements of 80 different subjects of a different rater, Rater 2. The user shall proceed with the following function:
 
@@ -122,9 +122,9 @@ result2 <- indep_ci(indep_ex_df1, indep_ex_df2, conf_level = 0.9)
 
 The function yields the following output:
 
-* ICC of indep_ex_df1 = result2\$data1ICC = `r result2$data1ICC`
-* ICC of indep_ex_df2 = result2\$data2ICC = `r result2$data2ICC`
-* Confidence interval for the difference between indep_ex_df1 ICC and indep_ex_df2 ICC = result2$confidenceIntervalDifference
+* ICC of indep_ex_df1 = `result2$data1ICC` = `r result2$data1ICC`
+* ICC of indep_ex_df2 = `result2$data2ICC` = `r result2$data2ICC`
+* Confidence interval for the difference between indep_ex_df1 ICC and indep_ex_df2 ICC = `result2$confidenceIntervalDifference`
     * Lower bound of confidence interval = result2\$confidenceIntervalDifference\$lowerBound = `r result2$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result2\$confidenceIntervalDifference\$upperBound = `r result2$confidenceIntervalDifference$upperBound`
 
@@ -157,7 +157,7 @@ The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials p
 
 ## 4.2. Unequal Number of Observations (Dependent case only)
 
-In order for the two dataframes to be dependent, the subjects/rows must be matched across dataframes. This means row 1 of dataframe1 represents the same subject as row 1 of dataframe2, and so on for each additional row of data. Therefore, if there are an unequal number of subjects/rows between the two dataframes, the function **dep_ci()** will return an error message. The dataframes cannot be dependent when they have an unequal number of rows of data. Below is an example:
+In order for the two dataframes to be dependent, the subjects/rows must be matched across dataframes. This means row 1 of dataframe1 represents the same subject as row 1 of dataframe2, and so on for each additional row of data. Therefore, if there are an unequal number of subjects/rows between the two dataframes, the function `dep_ci()` will return an error message. The dataframes cannot be dependent when they have an unequal number of rows of data. Below is an example:
 
 ``` {r, error = T}
 d1_trial1 <- c(34, 33, 36)
@@ -175,11 +175,11 @@ dep_ci(data1, data2)
 
 The error message tells the user that the number of rows must be equal across dataframes. When receiving this message, the user should adjust the dataframes to make sure that the subjects tested in each dataframe match each other and are placed in the same row in both dataframes.
 
-Note: This is not an issue for the independent case. The **indep_ci()** function accepts dataframes with unequal numbers of observations, since the subjects should not match across dataframes.
+Note: This is not an issue for the independent case. The `indep_ci()` function accepts dataframes with unequal numbers of observations, since the subjects should not match across dataframes.
 
 ## 4.3. Missing Values
 
-The embedded functions in the compicc functions do not work with dataframes that consist of missing values. Therefore, if the user tries to call either the **dep_ci()** or **indep_ci()** function with a dataframe that has one or more NA or NaN value, the function will stop running and return an error message. An example of this is shown below:
+The embedded functions in the compicc functions do not work with dataframes that consist of missing values. Therefore, if the user tries to call either the `dep_ci()` or `indep_ci()` function with a dataframe that has one or more NA or NaN value, the function will stop running and return an error message. An example of this is shown below:
 
 ``` {r, error = T}
 d1_trial1 <- c(34, 33, 36)

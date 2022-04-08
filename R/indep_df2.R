@@ -4,8 +4,9 @@
 #' trials. This is to be used in an example for the case of
 #' comparing 2 independent ICCs (function indep_ci()), where this dataset
 #' contains the scores measured by Rater 2 (or at time 2) of the 80 subjects
-#' and dataset indep_ex_df1 contains the scores measured by Rater 1 (or at time
+#' and dataset indep_df1 contains the scores measured by Rater 1 (or at time
 #' 1) of 100 different subjects.
 #'
+#'
 #' @format A dataframe with 80 rows and 4 columns
-"indep_ex_df2"
+"indep_df2"

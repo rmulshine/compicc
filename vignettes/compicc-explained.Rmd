@@ -102,7 +102,7 @@ The function yields the following output:
     * Lower bound of confidence interval = result\$confidenceIntervalDifference\$lowerBound = `r result$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result\$confidenceIntervalDifference\$upperBound = `r result$confidenceIntervalDifference$upperBound`
 
-In this case, we are 95% confident that the true difference between the ICC of dep_df1 and the ICC of dep_df2 lies in the interval (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial and final timea are not equal. This means the reliability of the sensor has changed over time.
+In this case, we are 95% confident that the true difference between the ICC of dep_df1 and the ICC of dep_df2 lies in the interval (`r result$confidenceIntervalDifference$lowerBound`, `r result$confidenceIntervalDifference$upperBound`). Since the interval is strictly positive and does not include zero, we have enough evidence to conclude that the true ICCs of the sensor at the initial and final timea are not equal. This means the reliability of the measurements of the sensor has changed over time.
 
 ## 3.2. Example with Independent Data
 

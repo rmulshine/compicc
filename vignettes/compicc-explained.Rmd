@@ -114,7 +114,7 @@ The inputs of the `indep_ci()` function are:
 * `data2`: the second dataframe (must be in wide format)
 * `conf_level`: confidence level of the confidence interval (defaults to 0.95 when not specified)
 
-This time, the user wants to compute a 90% confidence interval for the difference between the ICC of **indep_ex_df1** and **indep_ex_df2**, storing the output in a variable called *result2*. Recall in this scenario, indep_ex_df1 contains the measurements of 100 subjects by Rater 1, and indep_ex_df2 contains the measurements of 80 different subjects of a different rater, Rater 2. The user shall proceed with the following function:
+For example, the following code computes the 90% confidence interval for the difference between the ICC of **indep_ex_df1** and **indep_ex_df2**, storing the output in a variable called *result2*:
 
 ```{r}
 result2 <- indep_ci(indep_ex_df1, indep_ex_df2, conf_level = 0.9)
@@ -128,7 +128,7 @@ The function yields the following output:
     * Lower bound of confidence interval = result2\$confidenceIntervalDifference\$lowerBound = `r result2$confidenceIntervalDifference$lowerBound`
     * Upper bound of confidence interval = result2\$confidenceIntervalDifference\$upperBound = `r result2$confidenceIntervalDifference$upperBound`
 
-In this case, we are 90% confident that the true difference between the ICC of indep_ex_df1 and the ICC of indep_ex_df2 lies in the interval (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICC of Rater 1 and the true ICC of Rater 2 are unequal.
+In this case, we are 90% confident that the true difference between the ICC of indep_ex_df1 and the ICC of indep_ex_df2 lies in the interval (`r result2$confidenceIntervalDifference$lowerBound`, `r result2$confidenceIntervalDifference$upperBound`). Since the interval includes zero, there is not enough evidence to conclude that the true ICCs of the two dataframes differ.
 
 # 4. Frequent Errors
 
@@ -153,7 +153,7 @@ data2 <- data.frame(d2_trial1, d2_trial2, d2_trial3, d2_trial4)
 indep_ci(data1, data2)
 ```
 
-The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes.
+The dataframe data1 consists of 3 trials per subject, but data2 holds 4 trials per subject. The error message informs the user that the number of trials/columns must be equal across dataframes. This error applies to both the `dep_ci()` and `indep_ci()` functions.
 
 ## 4.2. Unequal Number of Observations (Dependent case only)
 
@@ -199,7 +199,7 @@ The error message states that there cannot be a missing value in either datafram
 
 # 5. Description of Calculations
 
-The functions in the compicc package include intensive calculations derived from Ramasundarahettige et al. (2009) to return the confidence interval of the difference of ICCs. The description of these calculations is provided for the users of the compicc package to understand and validate the functions' mathematical procedures.
+As mentioned above, the functions in the compicc package include intensive calculations derived by Ramasundarahettige et al. (2009).
 
 The approach to estimating the difference between two ICCs begins with the simple case of one ICC. In this case, the formula of the confidence interval is derived from the central limit theorem and Slutsky's Theorem:
 
@@ -213,63 +213,15 @@ Extending this to the difference of two ICCs, the formula becomes:
 
 **Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{var(\widehat{\rho}_1)+var(\widehat{\rho}_2)}$
 
-Since the limits L and U may not be symmetrical around $\widehat{\rho_1}-\widehat{\rho_2}$, the variance terms must be expanded further. Considering the variance of one ICC estimate $\widehat{\rho_1}$ and the lower limit L, the variance is defined as:
+The formulas are derived from Ramasundarahettige et al. (2009) to yield the following equations:
 
-$\widehat{var}(\widehat{\rho}_1) = (\hat{\rho}_1 - l_1)^2/(z_{\alpha/2})^2$
-
-Where $l_1$ is the lower bound of the confidence interval of $\rho_1$, the first ICC.
-
-Similarly, for the upper limit U:
-
-$\widehat{var}_2(\widehat{\rho}_2) = (u_2 - \hat{\rho}_2)^2/(z_{\alpha/2})^2$
-
-Where $l_2$ is the lower bound of the confidence interval of $\rho_2$, the second ICC.
-
-Therefore, the square root term in the original equation $var(\widehat{\rho}_1)+var(\widehat{\rho}_2)$ expands as:
-
-$var(\widehat{\rho}_1)+var(\widehat{\rho}_2) = (\hat{\rho}_1 - l_1)^2/(z_{\alpha/2})^2 + (u_2 - \hat{\rho}_2)^2/(z_{\alpha/2})^2$
-
-Substituting this into the equations for the upper and lower bounds of the confidence interval:
+For the independent case, the confidence interval is calculated by:
 
 **Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2+(u_2-\widehat{\rho_2})^2}$
 
 **Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2+(\widehat{\rho_2}-l_2)^2}$
 
-These formulas will be referred to as Formulas 1.1 and 1.2.
-
-Formulas 1.1 and 1.2 are used to calculate the confidence interval of the difference between two **independent** ICCs. If the squared terms were to be expanded (as done in the next step), a correlation term would arise. The correlation between two independent variables is identically zero, so the above formulas (1.1 and 1.2) are the final formulas used to calculate the confidence interval in the independent case.
-
-For dependent data, the squared terms must be exapnded, since dependent data is correlated. The formulas 1.1 and 1.2 are expanded, with the following definition in mind:
-
-$cov(\hat{\rho}_1, \hat{\rho}_2) = corr(\hat{\rho}_1, \hat{\rho}_2)*\sqrt{var(\widehat{\rho}_1)*var(\widehat{\rho}_2)}$
-
-Which returns the equations:
-
-**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(\widehat{\rho_1}-l_1)*(u_2-\widehat{\rho_2})+(u_2-\widehat{\rho_2})^2}$
-
-**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(u_1-\widehat{\rho_1})*(\widehat{\rho_2}-l_2)+(\widehat{\rho_2}-l_2)^2}$
-
-These formulas will be referred to as Formulas 2.1 and 2.2.
-
-The term $\widehat{corr({\rho}_{1}{\rho}_{2})}$ is defined by Ramasundarahettige et al. (2009) as:
-
-$\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
-
-Where $k_1$, $k_2$ are the number of measurements (trials) on each subject by systems 1 and 2, respectively; $\widehat{\rho}_{12}$ is the interclass correlation coefficient (Pearson's correlation "r") between systems 1 and 2.
-
-$\widehat{\rho}_{12}$ is calculated as the Pearson product moment correlation between the first and second pair of all possible combinations of data points in both dataframes. This gives all of the values necessary to compute the limits of the confidence interval for the dependent case.
-
-## 5.1. Independent Data
-
-As a brief summary, the complete formulas used by the function indep_ci() for computing the bounds of the confidence interval for independent data are shown again:
-
-**Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2+(u_2-\widehat{\rho_2})^2}$
-
-**Upper bound:** $U = \widehat{\rho_1}-\widehat{\rho_2}+\sqrt{(u_1-\widehat{\rho_1})^2+(\widehat{\rho_2}-l_2)^2}$
-
-## 5.2. Dependent Data
-
-For dependent data, the complete formulas used by the function dep_ci() for the bounds of the confidence interval are:
+For the dependent case, the confidence interval is calculated by:
 
 **Lower bound:** $L = \widehat{\rho_1}-\widehat{\rho_2}-\sqrt{(\widehat{\rho_1}-l_1)^2-2*\widehat{corr({\rho}_{1}{\rho}_{2})}*(\widehat{\rho_1}-l_1)*(u_2-\widehat{\rho_2})+(u_2-\widehat{\rho_2})^2}$
 
@@ -279,9 +231,9 @@ Where:
 
 $\widehat{corr({\rho}_{1}{\rho}_{2})} = \widehat{\rho}_{12}^2*\frac{\sqrt{k_1*k_2*(k_1-1)*(k_2-1)}}{(1+(k_1-1)\widehat{\rho}_{1})(1+(k_2-1)\widehat{\rho}_{2})}$
 
-For further reading into the calculations used in this package, reference the following reading:
+$\widehat{\rho_1}$ and $\widehat{\rho_2}$ are the point estimates of the two dataframes' ICCs, $l_1$ and $u_1$ are the lower and upper bounds of the CI of the ICC of dataframe 1, $l_2$ and $u_2$ are the lower and upper bounds of the CI of the ICC of dataframe 2.
 
-Ramasundarahettige, C. F., Donner, A., & Zou, G. Y. (2009). Confidence Interval Construction for a Difference Between Two Dependent Intraclass Correlation Coefficients. *Statistics in Medicine*, 28(7), 1041–1053. https://doi.org/10.1002/sim.3523 
+For further reading into the calculations used in this package, refer to Ramasundarahettige et al. (2009).
 
 # 6. References
 

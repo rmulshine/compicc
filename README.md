@@ -8,13 +8,13 @@
 
 ## Description
 
-The goal of compicc is to help practicioners in the fields of medicine,
-psychology and sports science to efficiently compare the reliability of
-two systems, measurers or judges. This package includes two functions
+The goal of compicc is to help practicioners in fields such as psychology,
+medicine and sports performance science to compare the reliability of two
+raters (or systems, instruments or judges). This package includes two functions
 that allow the user to compute the difference between the intraclass
-correlation coefficient of two datasets of measurements. This can be
-used to compare two different systems, one system at two different time
-points, or many other applications.
+correlation coefficient of measurements in two datasets. For example,
+one may compare the reliability of measurements from two different raters
+(or measurement instruments) or one rater at two different time points.
 
 ## Installation
 
@@ -37,13 +37,11 @@ devtools::install_github("rmulshine/compicc")
 This package includes two functions:
 
 -   Confidence interval of difference of *dependent* intraclass
-    correlation coefficients: **dep\_ci()**
+    correlation coefficients: `dep_ci()`
 -   Confidence interval of difference of *independent* intraclass
-    correlation coefficients: **indep\_ci()**
+    correlation coefficients: `indep_ci()`
 
-The package includes example data that can be run on both functions.
-
-The package’s vignette further describes both functions and shows how
-they can be used with the package’s included data. The vignette also
-explains possible user errors, typically due to incorrect formatting of
-the data, and reviews both functions’ specialized error messages.
+The package includes example data to illustrate both functions. Details
+are given in the vignette. The vignette also explains possible user errors,
+typically due to incorrect formatting of the data, and reviews both
+functions’ error messages.
